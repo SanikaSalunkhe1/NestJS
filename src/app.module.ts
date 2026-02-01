@@ -13,11 +13,18 @@ import { MypipeController } from './mypipe/mypipe.controller';
 import { UserRoleController } from './user-role/user-role.controller';
 import { ExceptionController } from './exception/exception.controller';
 import { LoggerMiddleware } from './middleware/logger/logger.middleware';
+import { DatabaseService } from './database/database.service';
+import { DatabaseController } from './database/database.controller';
+import { ConfigModule } from '@nestjs/config';
+import { EnvService } from './env/env.service';
+import { EnvController } from './env/env.controller';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule],
-  controllers: [AppController, UserController, ProductController, EmployeeController, MypipeController, UserRoleController, ExceptionController],
-  providers: [AppService, ProductService],
+  // imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule , ConfigModule.forRoot({ isGlobal : true })],
+  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule , ConfigModule.forRoot() , MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://localhost:27017/nestjs')],
+  controllers: [AppController, UserController, ProductController, EmployeeController, MypipeController, UserRoleController, ExceptionController, DatabaseController, EnvController],
+  providers: [AppService, ProductService, DatabaseService, EnvService],
 })
 export class AppModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
