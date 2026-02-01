@@ -19,10 +19,11 @@ import { ConfigModule } from '@nestjs/config';
 import { EnvService } from './env/env.service';
 import { EnvController } from './env/env.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import { StudentsModule } from './students/students.module';
 
 @Module({
   // imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule , ConfigModule.forRoot({ isGlobal : true })],
-  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule , ConfigModule.forRoot() , MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://localhost:27017/nestjs')],
+  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule , ConfigModule.forRoot() , MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://localhost:27017/nestjs'), StudentsModule],
   controllers: [AppController, UserController, ProductController, EmployeeController, MypipeController, UserRoleController, ExceptionController, DatabaseController, EnvController],
   providers: [AppService, ProductService, DatabaseService, EnvService],
 })
