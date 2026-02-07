@@ -23,4 +23,11 @@ export class ProjectService {
         ]);
         return { dev1, dev2 };
     }
+    async getDevelopers() : Promise<Developer[]> {
+        return this.developerModel.find().populate('projects').lean();
+    }
+
+    async getProjects() : Promise<Project[]> {
+        return this.projectModel.find().lean();
+    }
 }
